@@ -1,6 +1,9 @@
 import { AcaDefect, AcaFuelLow, AcaHeadingToBase, Message, MissileToOwnshipDetected, RequestApprovalToAttack } from "./schema";
+import typia from "typia";
 
-const samples: Array<Message> = [
+/* sample messages ********************************************************************************/
+
+const SAMPLES: Array<Message> = [
   // example convo 1: high priority, low threat, no collateral
   {
     id: 0,
@@ -24,7 +27,7 @@ const samples: Array<Message> = [
 
   // example convo 2: low priority, low threat, no collateral, weapons low
   {
-    id: 0,
+    id: 1,
     priority: 2,
     kind: "RequestApprovalToAttack",
     data: {
@@ -45,7 +48,7 @@ const samples: Array<Message> = [
 
   // fuel low on aca
   {
-    id: 0,
+    id: 2,
     priority: 5,
     kind: "AcaFuelLow",
     data: {
@@ -56,7 +59,7 @@ const samples: Array<Message> = [
 
   // example convo 3: low priority, low threat, no collateral
   {
-    id: 0,
+    id: 3,
     priority: 3,
     kind: "RequestApprovalToAttack",
     data: {
@@ -77,7 +80,7 @@ const samples: Array<Message> = [
 
   // aca that previously send low fuel is now heading to base
   {
-    id: 0,
+    id: 4,
     priority: 5,
     kind: "AcaHeadingToBase",
     data: {
@@ -88,7 +91,7 @@ const samples: Array<Message> = [
 
   // example convo 4: low priority, high threat, no collateral
   {
-    id: 0,
+    id: 5,
     priority: 3,
     kind: "RequestApprovalToAttack",
     data: {
@@ -109,7 +112,7 @@ const samples: Array<Message> = [
 
   // example convo 5: missile heading towards ownship, weapons low on aca
   {
-    id: 0,
+    id: 6,
     priority: 10,
     kind: "MissileToOwnshipDetected",
     data: {
@@ -126,7 +129,7 @@ const samples: Array<Message> = [
 
   // defect on aca
   {
-    id: 0,
+    id: 7,
     priority: 7,
     kind: "AcaDefect",
     data: {
@@ -137,7 +140,7 @@ const samples: Array<Message> = [
 
   // example convo 6: high priority, low threat, possible collateral
   {
-    id: 0,
+    id: 8,
     priority: 8,
     kind: "RequestApprovalToAttack",
     data: {
@@ -158,7 +161,7 @@ const samples: Array<Message> = [
 
   // example convo 7: high priority, low threat, no collateral, detected by ownship
   {
-    id: 0,
+    id: 9,
     priority: 7,
     kind: "RequestApprovalToAttack",
     data: {
@@ -177,4 +180,26 @@ const samples: Array<Message> = [
   } satisfies RequestApprovalToAttack,
 ];
 
-console.log(samples);
+/* validation *************************************************************************************/
+
+const VALIDATORS = {
+  "AcaDefect": typia.createValidateEquals<AcaDefect>(),
+  "AcaFuelLow": typia.createValidateEquals<AcaFuelLow>(),
+  "AcaHeadingToBase": typia.createValidateEquals<AcaHeadingToBase>(),
+  "MissileToOwnshipDetected": typia.createValidateEquals<MissileToOwnshipDetected>(),
+  "RequestApprovalToAttack": typia.createValidateEquals<RequestApprovalToAttack>(),
+};
+
+for (const msg of SAMPLES) {
+  const validator = VALIDATORS[msg.kind];
+  const validationResult = validator(msg);
+
+  if (validationResult.success) {
+    console.log(`msg ${msg.id}: OK`);
+  } else {
+    console.log(`msg ${msg.id}: ERROR`);
+    for (const error of validationResult.errors) {
+      console.log(` - ${error.path}, expected ${error.expected}, found value ${error.value}`);
+    }
+  }
+}

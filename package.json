@@ -14,7 +14,6 @@
   },
   "scripts": {
     "prepare": "ts-patch install && typia patch",
-    "compile": "tsc",
-    "cr": "tsc && node dist/index.js"
+    "check": "tsc && node dist/index.js"
   }
 }
