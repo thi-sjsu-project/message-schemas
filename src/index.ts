@@ -1,6 +1,7 @@
 import { AcaDefect, AcaFuelLow, AcaHeadingToBase, Message, MissileToOwnshipDetected, RequestApprovalToAttack } from "./schema";
 import typia from "typia";
 
+
 /* sample messages ********************************************************************************/
 
 const SAMPLES: Array<Message> = [
@@ -54,7 +55,7 @@ const SAMPLES: Array<Message> = [
     data: {
       acaId: 5,
       fuelLevel: 0.1,
-    }
+    },
   } satisfies AcaFuelLow,
 
   // example convo 3: low priority, low threat, no collateral
@@ -86,7 +87,7 @@ const SAMPLES: Array<Message> = [
     data: {
       acaId: 5,
       reason: "fuelLow",
-    }
+    },
   } satisfies AcaHeadingToBase,
 
   // example convo 4: low priority, high threat, no collateral
@@ -179,6 +180,7 @@ const SAMPLES: Array<Message> = [
     },
   } satisfies RequestApprovalToAttack,
 ];
+
 
 /* validation *************************************************************************************/
 

@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 
-/* messages *******************************************************************/
+/* messages ***************************************************************************************/
 
 export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
 
@@ -26,7 +26,7 @@ export type MissileToOwnshipDetected = BaseMessage<"MissileToOwnshipDetected", {
   detectedByAca?: Id,
   acaAttackWeapon?: Weapon,
   choiceWeight: Range<-1, 1>, // specifies which choice option to prefer, -1: avoid, 1: intervene
-}>
+}>;
 
 export type AcaFuelLow = BaseMessage<"AcaFuelLow", {
   acaId: Id,
@@ -36,15 +36,15 @@ export type AcaFuelLow = BaseMessage<"AcaFuelLow", {
 export type AcaDefect = BaseMessage<"AcaDefect", {
   acaId: Id,
   message: string,
-}>
+}>;
 
 export type AcaHeadingToBase = BaseMessage<"AcaHeadingToBase", {
   acaId: Id,
   reason?: "fuelLow" | "weaponsLow",
-}>
+}>;
 
 
-/* utility types **************************************************************/
+/* utility types **********************************************************************************/
 
 export type Id = number & tags.Type<"uint64">;
 export type Priority = number & tags.Type<"uint32"> & tags.Maximum<10>;
