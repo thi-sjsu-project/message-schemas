@@ -195,9 +195,9 @@ for (const msg of SAMPLES) {
   const validationResult = validator(msg);
 
   if (validationResult.success) {
-    console.log(`msg ${msg.id}: OK`);
+    console.log(`msg ${msg.id}: \x1b[32mOK\x1b[0m`);
   } else {
-    console.log(`msg ${msg.id}: ERROR`);
+    console.log(`msg ${msg.id}: \x1b[31mERROR\x1b[0m`);
     for (const error of validationResult.errors) {
       console.log(` - ${error.path}, expected ${error.expected}, found value ${error.value}`);
     }
