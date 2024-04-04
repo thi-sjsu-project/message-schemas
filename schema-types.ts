@@ -3,6 +3,11 @@ import { tags } from "typia";
 
 /* messages ***************************************************************************************/
 
+export type SimToCmMessage = {
+  message?: Message,
+  // response?: "approve" | "deny" | "ignored"
+};
+
 export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
 
 export type BaseMessage<TKind extends string, TData extends object> = {
