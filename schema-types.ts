@@ -11,7 +11,7 @@ export type SimToCmMessage = {
 export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
 
 export type BaseMessage<TKind extends string, TData extends object> = {
-  id: Id,
+  id: MessageId,
   priority: Priority,
   kind: TKind,
   data: TData,
@@ -51,7 +51,8 @@ export type AcaHeadingToBase = BaseMessage<"AcaHeadingToBase", {
 
 /* utility types **********************************************************************************/
 
-export type Id = string & tags.Format<"uuid">; 
+export type Id = number & tags.Type<"uint64">;
+export type MessageId = string & tags.Format<"uuid">; 
 export type Priority = number & tags.Type<"uint32"> & tags.Maximum<10>;
 export type Range<From extends number, To extends number> = number & tags.Type<"float"> & tags.Minimum<From> & tags.Maximum<To>;
 
