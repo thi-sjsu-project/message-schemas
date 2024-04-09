@@ -5,7 +5,7 @@ import { tags } from "typia";
 
 export type SimToCmMessage = {
   message?: Message,
-  // response?: "approve" | "deny" | "ignored"
+  stressLevel?: Range<0, 1>,
 };
 
 export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
