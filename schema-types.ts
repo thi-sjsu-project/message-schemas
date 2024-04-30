@@ -4,8 +4,8 @@ import { tags } from "typia";
 /* messages ***************************************************************************************/
 
 export type SimToCmMessage = {
-  message: Message,
-  stressLevel: Range<0, 1>,
+  message?: Message,
+  stressLevel?: Range<0, 1>,
 };
 
 export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
