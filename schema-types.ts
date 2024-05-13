@@ -26,7 +26,7 @@ export type RequestApprovalToAttack = BaseMessage<"RequestApprovalToAttack", {
 }>;
 
 export type MissileToOwnshipDetected = BaseMessage<"MissileToOwnshipDetected", {
-  missileLocation: GeoPoint,
+  missileLocation: Point,
   survivability: Range<0, 1>,
   detectedByAca?: Id,
   acaAttackWeapon?: Weapon,
@@ -52,19 +52,20 @@ export type AcaHeadingToBase = BaseMessage<"AcaHeadingToBase", {
 /* utility types **********************************************************************************/
 
 export type Id = number & tags.Type<"uint64">;
-export type MessageId = string & tags.Format<"uuid">; 
-export type Priority = number & tags.Type<"uint32"> & tags.Maximum<10>;
+export type MessageId = string & tags.Format<"uuid">;
+export type Priority = DiscreteRange<0, 10>;
 export type Range<From extends number, To extends number> = number & tags.Type<"float"> & tags.Minimum<From> & tags.Maximum<To>;
+export type DiscreteRange<From extends number, To extends number> = number & tags.Type<"int64"> & tags.Minimum<From> & tags.Maximum<To>;
 
 export type Target = {
-  location: GeoPoint,
+  location: Point,
   threatLevel: Range<0, 1>,
   type: string,
 };
 
-export type GeoPoint = {
-  lat: Range<-90, 90>,
-  lng: Range<-180, 180>,
+export type Point = {
+  x: DiscreteRange<0, 1920>,
+  y: DiscreteRange<0, 1080>,
 };
 
 export type Weapon = {
