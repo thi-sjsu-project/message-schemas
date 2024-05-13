@@ -60,7 +60,7 @@ export type DiscreteRange<From extends number, To extends number> = number & tag
 export type Target = {
   location: Point,
   threatLevel: Range<0, 1>,
-  type: string,
+  type: "airDefense" | "artillery" | "radar",
 };
 
 export type Point = {
