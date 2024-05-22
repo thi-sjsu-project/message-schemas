@@ -14,6 +14,7 @@ export type BaseMessage<TKind extends string, TData extends object> = {
   id: Uuid,
   conversationId: Uuid,
   priority: Priority,
+  tags: Array<string>,
   kind: TKind,
   data: TData,
 };
