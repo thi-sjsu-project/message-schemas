@@ -8,7 +8,7 @@ export type SimToCmMessage = {
   stressLevel?: Range<0, 1>,
 };
 
-export type Message = RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
+export type Message = ThreatDetected | RequestApprovalToAttack | AcaFuelLow | MissileToOwnshipDetected | AcaDefect | AcaHeadingToBase;
 
 export type BaseMessage<TKind extends string, TData extends object> = {
   id: Uuid,
@@ -19,10 +19,13 @@ export type BaseMessage<TKind extends string, TData extends object> = {
   data: TData,
 };
 
-export type RequestApprovalToAttack = BaseMessage<"RequestApprovalToAttack", {
+export type ThreatDetected = BaseMessage<"ThreatDetected", {
   target: Target,
-  collateralDamage: "none" | "simple" | "complex",
   detectedByAca?: Id,
+}>;
+
+export type RequestApprovalToAttack = BaseMessage<"RequestApprovalToAttack", {
+  collateralDamage: "none" | "simple" | "complex",
   attackWeapon: Weapon,
   choiceWeight: Range<-1, 1>, // specifies which choice option to prefer, -1: deny, 1: approve
 }>;
