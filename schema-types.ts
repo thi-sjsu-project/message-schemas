@@ -25,6 +25,8 @@ export type ThreatDetected = BaseMessage<"ThreatDetected", {
 }>;
 
 export type RequestApprovalToAttack = BaseMessage<"RequestApprovalToAttack", {
+  target: Target,
+  detectedByAca?: Id,
   collateralDamage: "none" | "simple" | "complex",
   attackWeapon: Weapon,
   choiceWeight: Range<-1, 1>, // specifies which choice option to prefer, -1: deny, 1: approve
